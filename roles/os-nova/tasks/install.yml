@@ -1,0 +1,26 @@
+---
+  - name: Install nova packages (controller)
+    apt: name={{ item }} state=present
+    with_items:
+      - nova-api
+      - nova-conductor
+      - nova-consoleauth
+      - nova-novncproxy
+      - nova-scheduler
+    when: not is_compute
+
+  - name: Install nova packages (compute)
+    apt: name=nova-compute state=present
+    when: is_compute
+
+  - name: Discover hardware virtualization
+    shell: egrep -c '(vmx|svm)' /proc/cpuinfo
+    register: hwvirt
+    changed_when: False
+    failed_when: False
+
+  - name: Configure nova
+    template: dest=/etc/nova/nova.conf src=nova.conf.j2
+    notify:
+      - restart nova controller
+      - restart nova compute

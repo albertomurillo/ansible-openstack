@@ -1,0 +1,22 @@
+---
+# https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-common
+mysql_server: controller.example.com
+mysql_root_password: secret
+rabbitmq_server: controller.example.com
+
+# https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-keystone
+keystone_fqdn: controller.example.com
+keystone_admin_password: secret
+
+# https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-glance
+glance_fqdn: controller.example.com
+glance_password: secret
+
+# https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-nova
+nova_fqdn: controller.example.com
+nova_password: secret
+
+# https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-neutron
+neutron_fqdn: controller.example.com
+neutron_password: secret
+metadata_secret: secret

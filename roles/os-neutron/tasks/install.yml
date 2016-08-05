@@ -1,0 +1,37 @@
+---
+  - name: Install neutron packages (controller)
+    apt: name={{ item }} state=present
+    with_items:
+      - neutron-server
+      - neutron-plugin-ml2
+      - neutron-linuxbridge-agent
+      - neutron-l3-agent
+      - neutron-dhcp-agent
+      - neutron-metadata-agent
+    when: not is_compute
+
+  - name: Install neutron packages (compute)
+    apt: name=neutron-linuxbridge-agent state=present
+    when: is_compute
+
+  - name: Configure neutron (controller)
+    template: dest=/etc/neutron/{{ item }} src={{ item }}.j2
+    with_items:
+      - neutron.conf
+      - plugins/ml2/ml2_conf.ini
+      - plugins/ml2/linuxbridge_agent.ini
+      - l3_agent.ini
+      - dhcp_agent.ini
+      - metadata_agent.ini
+    notify:
+      - restart neutron controller
+    when: not is_compute
+
+  - name: Configure neutron (compute)
+    template: dest=/etc/neutron/{{ item }} src={{ item }}.j2
+    with_items:
+      - neutron.conf
+      - plugins/ml2/linuxbridge_agent.ini
+    notify:
+      - restart neutron compute
+    when: is_compute

@@ -1,0 +1,6 @@
+---
+# Password for the neutron user in the database
+neutron_database_password: secret
+
+# When set to True, the role will install the compute node part.
+is_compute: False

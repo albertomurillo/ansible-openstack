@@ -1,0 +1,20 @@
+---
+# Password for the glance user in the database
+glance_database_password: secret
+
+# Password for the glance user in openstack
+glance_password: secret
+
+# # An optional list of images to create
+# # Note: container_format, disk_format and public
+# # are optional and default values are shown below.
+# glance_images:
+#   - name: cirros
+#     url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+#     container_format: bare
+#     disk_format: qcow2
+#     public: True
+#   - name: Fedora 24
+#     url: https://download.fedoraproject.org/pub/fedora/linux/releases/24/CloudImages/x86_64/images/Fedora-Cloud-Base-24-1.2.x86_64.qcow2
+#   - name: Ubuntu Xenial
+#     url: https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img

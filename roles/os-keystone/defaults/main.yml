@@ -1,0 +1,3 @@
+---
+# Password for the keystone user in the database
+keystone_database_password: secret

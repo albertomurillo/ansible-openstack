@@ -1,0 +1,11 @@
+[dbservers]
+controller.example.com
+
+[mqservers]
+controller.example.com
+
+[controller]
+controller.example.com mgmt_interface=eth1
+
+[compute]
+controller.example.com mgmt_interface=eth1

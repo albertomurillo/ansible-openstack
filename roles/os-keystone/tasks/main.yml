@@ -1,0 +1,10 @@
+---
+  - include: install.yml
+  - include: dbsetup.yml
+  - include: bootstrap.yml
+  - include: access.yml
+
+  - name: Create openrc file
+    local_action: template src=openrc.j2 dest=~/openrc mode=0600
+
+  # TODO: Disable admin_token

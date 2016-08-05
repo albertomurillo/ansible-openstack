@@ -1,0 +1,6 @@
+---
+  - name: Install horizon packages
+    apt: name=openstack-dashboard state=present
+    notify: restart apache2
+
+  # TODO: Configure

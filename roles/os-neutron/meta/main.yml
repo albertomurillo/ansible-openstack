@@ -1,0 +1,23 @@
+galaxy_info:
+  author: Alberto Murillo
+  description: Role to deploy Neutron (Mitaka)
+  company: Intel
+
+  issue_tracker_url: https://github.com/albertomurillo/ansible-openstack/issues
+
+  license: Apache
+
+  min_ansible_version: 2.1
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+
+  galaxy_tags:
+    - openstack
+    - neutron
+    - mitaka
+
+dependencies:
+  - os-common

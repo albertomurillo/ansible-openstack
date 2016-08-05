@@ -1,0 +1,16 @@
+---
+  - include: install.yml
+  - include: dbsetup.yml
+  - include: access.yml
+
+  - name: Create images
+    glance:
+      command: image-create
+      openrc_path: /root/openrc
+      image_name: "{{ item.name }}"
+      image_url: "{{ item.url }}"
+      image_container_format: "{{ item.container_format | default('bare') }}"
+      image_disk_format: "{{ item.disk_format | default('qcow2') }}"
+      image_is_public: "{{ item.public | default(True) }}"
+      api_version: 2
+    with_items: "{{ glance_images | default([]) }}"

@@ -1,0 +1,10 @@
+---
+  - name: Install glance packages
+    apt: name=glance state=present
+
+  - name: Configure glance
+    template: dest=/etc/glance/{{ item }} src={{ item }}.j2
+    with_items:
+      - glance-api.conf
+      - glance-registry.conf
+    notify: restart glance

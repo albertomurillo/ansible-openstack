@@ -1,0 +1,19 @@
+---
+  - name: Install software-properties-common
+    apt: name={{ item }} state=present
+    with_items:
+      - software-properties-common
+      - ubuntu-cloud-keyring
+
+  # NOTE: cloud-archive format is not supported in ansible
+  # See issue https://github.com/ansible/ansible-modules-core/issues/292
+  - name: Add cloud-archive:mitaka repository
+    apt_repository:
+      repo: deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/mitaka main
+      state: present
+
+  - name: Update packages
+    apt: update_cache=yes upgrade=dist
+
+  - name: Install OpenStack Client
+    apt: name=python-openstackclient state=present

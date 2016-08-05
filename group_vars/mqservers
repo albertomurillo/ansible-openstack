@@ -1,0 +1,17 @@
+---
+# https://github.com/Stouts/Stouts.rabbitmq
+rabbitmq_enabled: yes
+
+rabbitmq_plugins:
+  - rabbitmq_management
+
+rabbitmq_users:
+  - user: openstack
+    password: secret
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+
+rabbitmq_users_remove:
+  - guest

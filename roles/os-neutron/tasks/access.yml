@@ -1,0 +1,61 @@
+---
+  - name: Create neutron service
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: admin
+      command: ensure_service
+      service_name: neutron
+      service_type: network
+      description: OpenStack Networking
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+
+  - name: Create neutron endpoints
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: admin
+      command: ensure_endpoint
+      region_name: RegionOne
+      service_name: neutron
+      service_type: network
+      endpoint_list:
+        - url: "http://{{ neutron_fqdn }}:9696"
+          interface: public
+        - url: "http://{{ neutron_fqdn }}:9696"
+          interface: internal
+        - url: "http://{{ neutron_fqdn }}:9696"
+          interface: admin
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+
+  - name: Create neutron user
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: admin
+      command: ensure_user
+      user_name: neutron
+      project_name: admin
+      password: "{{ neutron_password }}"
+      domain_name: Default
+      email: neutron@example.com
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+
+  - name: Add neutron user to admin role
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: admin
+      command: ensure_user_role
+      user_name: neutron
+      project_name: service
+      role_name: admin
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes

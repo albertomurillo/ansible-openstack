@@ -1,0 +1,36 @@
+---
+  - name: Create mysql nova database
+    delegate_to: "{{ mysql_server }}"
+    mysql_db:
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      name: "{{ item }}"
+      state: present
+      encoding: utf8
+    with_items:
+      - nova
+      - nova_api
+
+  - name: Create mysql nova user
+    delegate_to: "{{ mysql_server }}"
+    mysql_user:
+      name: nova
+      password: "{{ nova_database_password }}"
+      priv: nova.*:ALL/nova_api.*:ALL
+      state: present
+      host: "{{ item }}"
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+    with_items:
+       - "%"
+       - "localhost"
+
+  - name: Perform a nova DB sync
+    command: "nova-manage {{item}} sync"
+    become: yes
+    become_user: nova
+    register: result
+    changed_when: "'migrate.versioning.api' in result.stderr and result.rc == 0"
+    with_items:
+      - db
+      - api_db

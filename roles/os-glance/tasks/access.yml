@@ -1,0 +1,61 @@
+---
+  - name: Create glance service
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_service"
+      service_name: "glance"
+      service_type: "image"
+      description: "Glance Image Service"
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+
+  - name: Create glance endpoints
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_endpoint"
+      region_name: "RegionOne"
+      service_name: "glance"
+      service_type: "image"
+      endpoint_list:
+        - url: "http://{{ glance_fqdn }}:9292"
+          interface: "public"
+        - url: "http://{{ glance_fqdn }}:9292"
+          interface: "internal"
+        - url: "http://{{ glance_fqdn }}:9292"
+          interface: "admin"
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+
+  - name: Create glance user
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_user"
+      user_name: glance
+      project_name: admin
+      password: "{{ glance_password }}"
+      domain_name: "Default"
+      email: glance@example.com
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+
+  - name: Add glance user to admin role
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_user_role"
+      user_name: glance
+      project_name: service
+      role_name: admin
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes

@@ -1,0 +1,9 @@
+---
+# geerlingguy.mysql: https://galaxy.ansible.com/geerlingguy/mysql/
+mysql_user_home: /root
+mysql_root_password: secret
+mysql_packages:
+ - mariadb-client
+ - mariadb-server
+ - python-mysqldb
+mysql_bind_address: '0.0.0.0'

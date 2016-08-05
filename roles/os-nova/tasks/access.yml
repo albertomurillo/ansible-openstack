@@ -1,0 +1,61 @@
+---
+  - name: Create nova service
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ nova_password }}"
+      login_project_name: "admin"
+      command: "ensure_service"
+      service_name: "nova"
+      service_type: "compute"
+      description: "OpenStack Compute"
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+
+  - name: Create nova endpoints
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_endpoint"
+      region_name: "RegionOne"
+      service_name: "nova"
+      service_type: "compute"
+      endpoint_list:
+        - url: "http://{{ nova_fqdn }}:8774/v2.1/%(tenant_id)s"
+          interface: "public"
+        - url: "http://{{ nova_fqdn }}:8774/v2.1/%(tenant_id)s"
+          interface: "internal"
+        - url: "http://{{ nova_fqdn }}:8774/v2.1/%(tenant_id)s"
+          interface: "admin"
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+
+  - name: Create nova user
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_user"
+      user_name: nova
+      project_name: admin
+      password: "{{ nova_password }}"
+      domain_name: "Default"
+      email: nova@example.com
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+
+  - name: Add nova user to admin role
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_user_role"
+      user_name: nova
+      project_name: service
+      role_name: admin
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes

@@ -1,0 +1,16 @@
+---
+  - name: Bootstrap keystone
+    command: |
+      keystone-manage bootstrap
+      --bootstrap-username admin
+      --bootstrap-password {{ keystone_admin_password }}
+      --bootstrap-project-name admin
+      --bootstrap-role-name admin
+      --bootstrap-service-name keystone
+      --bootstrap-admin-url "http://{{ keystone_fqdn }}:35357/v3"
+      --bootstrap-public-url "http://{{ keystone_fqdn }}:5000/v3"
+      --bootstrap-internal-url "http://{{ keystone_fqdn }}:5000/v3"
+    become: yes
+    become_user: keystone
+    register: result
+    changed_when: "'Created' in result.stderr"

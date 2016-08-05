@@ -1,0 +1,33 @@
+---
+  - name: Create mysql neutron database
+    delegate_to: "{{ mysql_server }}"
+    mysql_db:
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      name: neutron
+      state: present
+      encoding: utf8
+
+  - name: Create mysql neutron user
+    delegate_to: "{{ mysql_server }}"
+    mysql_user:
+      name: neutron
+      password: "{{ neutron_database_password }}"
+      priv: neutron.*:ALL
+      state: present
+      host: "{{ item }}"
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+    with_items:
+       - "%"
+       - "localhost"
+
+  - name: Perform a neutron DB sync
+    command: >
+      neutron-db-manage --config-file /etc/neutron/neutron.conf
+      --config-file /etc/neutron/plugins/ml2/ml2_conf.ini
+      upgrade head
+    become: yes
+    become_user: neutron
+    register: result
+    changed_when: "'migrate.versioning.api' in result.stderr and result.rc == 0"

@@ -1,0 +1,48 @@
+---
+# Set to true to enable debug on all openstack services
+log_debug: False
+
+# FQDN for the mysql server
+mysql_server: localhost
+
+# Password to login into the mysql server
+mysql_root_password: secret
+
+# FQDN for rabbitmq server
+rabbitmq_server: localhost
+
+# Name for openstack user in rabbitmq
+rabbitmq_openstack_user: openstack
+
+# Password for openstack user in rabbitmq
+rabbitmq_openstack_password: secret
+
+# FQDN for the keystone server
+keystone_fqdn: localhost
+
+# FQDN for the glance server
+glance_fqdn: localhost
+
+# FQDN for the nova server
+nova_fqdn: localhost
+
+# FQDN for the neutron server
+neutron_fqdn: localhost
+
+# Password for the admin user in openstack
+keystone_admin_password: secret
+
+# Password for the nova user in openstack
+nova_password: secret
+
+# Password for the neutron user in openstack
+neutron_password: secret
+
+# Metadata Secret
+metadata_secret: secret
+
+# MGMT interface
+mgmt_interface: "{{ ansible_default_ipv4.interface }}"
+
+# MGMT interface IP
+mgmt_interface_ip: "{{ hostvars[inventory_hostname]['ansible_' + mgmt_interface]['ipv4']['address'] }}"

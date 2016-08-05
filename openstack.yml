@@ -1,0 +1,30 @@
+---
+  - hosts: all
+    roles:
+      - ericsysmin.chrony
+
+  - hosts: dbservers
+    roles:
+      - geerlingguy.mysql
+
+  - hosts: mqservers
+    roles:
+      - Stouts.rabbitmq
+
+  - hosts: controller
+    roles:
+      - os-keystone
+      - os-glance
+      - os-nova
+      - os-neutron
+      - os-horizon
+    # environment:
+    #   http_proxy: http://proxy-server.example.com:8080
+    #   no_proxy: localhost,127.0.0.1,.example.com
+
+  - hosts: compute
+    roles:
+      - os-nova
+      - os-neutron
+    vars:
+      is_compute: True
