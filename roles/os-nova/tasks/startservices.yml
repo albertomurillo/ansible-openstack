@@ -1,0 +1,16 @@
+---
+  - meta: flush_handlers
+
+  - name: Start nova services (controller)
+    service: name={{ item }} state=started
+    with_items:
+      - nova-api
+      - nova-consoleauth
+      - nova-scheduler
+      - nova-conductor
+      - nova-novncproxy
+    when: not is_compute
+
+  - name: Start nova services (compute)
+    service: name=nova-compute state=started
+    when: is_compute

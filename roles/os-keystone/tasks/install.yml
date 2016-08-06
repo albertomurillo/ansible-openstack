@@ -10,11 +10,11 @@
       - apache2
       - libapache2-mod-wsgi
 
-  - name: Configure Keystone
+  - name: Configure keystone
     template: dest=/etc/keystone/keystone.conf src=keystone.conf.j2
     notify: restart apache2
 
-  #TODO: Configure apache server name
+  # TODO: Configure apache server name
 
   - name: Create keystone virtual host in apache
     template:
@@ -28,5 +28,3 @@
       dest: /etc/apache2/sites-enabled/wsgi-keystone.conf
       state: link
     notify: restart apache2
-
-  - meta: flush_handlers

@@ -1,4 +1,10 @@
 ---
   - include: install.yml
+
   - include: dbsetup.yml
+    when: not is_compute
+
   - include: access.yml
+    when: not is_compute
+
+  - include: startservices.yml

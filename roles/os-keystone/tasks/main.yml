@@ -1,6 +1,7 @@
 ---
   - include: install.yml
   - include: dbsetup.yml
+  - include: startservices.yml
   - include: bootstrap.yml
   - include: access.yml
 

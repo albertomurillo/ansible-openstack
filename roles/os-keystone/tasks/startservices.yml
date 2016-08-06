@@ -1,0 +1,8 @@
+---
+  - meta: flush_handlers
+
+  - name: Start keystone services
+    service: name={{ item }} state=started
+    with_items:
+      - memcached
+      - apache2

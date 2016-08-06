@@ -1,0 +1,5 @@
+---
+  - meta: flush_handlers
+
+  - name: Start apache2 services
+    service: name=apache2 state=started

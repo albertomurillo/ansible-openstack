@@ -2,6 +2,7 @@
   - include: install.yml
   - include: dbsetup.yml
   - include: access.yml
+  - include: startservices.yml
 
   - name: Create images
     glance:

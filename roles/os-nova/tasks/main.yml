@@ -6,3 +6,5 @@
 
   - include: access.yml
     when: not is_compute
+
+  - include: startservices.yml
