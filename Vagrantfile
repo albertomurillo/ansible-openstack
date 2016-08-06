@@ -29,6 +29,8 @@ Vagrant.configure(2) do |config|
     sudo ansible-galaxy install ericsysmin.chrony
     sudo ansible-galaxy install geerlingguy.mysql
     sudo ansible-galaxy install Stouts.rabbitmq
+    sudo ssh-keygen -f /root/.ssh/id_rsa -q -N ""
+    sudo cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
   SHELL
 
 end
