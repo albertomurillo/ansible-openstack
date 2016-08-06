@@ -52,11 +52,6 @@ api_servers = http://{{ glance_fqdn }}:9292
 [oslo_concurrency]
 lock_path = /var/lib/nova/tmp
 
-{% if hwvirt.stdout == 0 %}
-[libvirt]
-virt_type = qemu
-{% endif %}
-
 [neutron]
 url = http://{{ neutron_fqdn }}:9696
 auth_url = http://{{ keystone_fqdn }}:35357

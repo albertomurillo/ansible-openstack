@@ -24,3 +24,9 @@
     notify:
       - restart nova controller
       - restart nova compute
+
+  - name: Configure nova (compute)
+    template: dest=/etc/nova/nova-compute.conf src=nova-compute.conf.j2
+    notify:
+      - restart nova compute
+    when: is_compute
