@@ -31,11 +31,11 @@ I have included a vagrant file that installs all prerequisites for you
 
 To start the vagrant vm:
 
-    $ vagrant up
+    $ vagrant up [ubuntu|centos]
 
 To login into the vm
 
-    $ vagrant ssh
+    $ vagrant ssh [ubuntu|centos]
 
 To start the playbooks
 
