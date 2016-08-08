@@ -1,16 +1,12 @@
 ---
   - name: Install nova packages (controller)
-    apt: name={{ item }} state=present
-    with_items:
-      - nova-api
-      - nova-conductor
-      - nova-consoleauth
-      - nova-novncproxy
-      - nova-scheduler
+    package: name={{ item }} state=present
+    with_items: "{{ nova_controller_packages }}"
     when: not is_compute
 
   - name: Install nova packages (compute)
-    apt: name=nova-compute state=present
+    package: name={{ item }} state=present
+    with_items: "{{ nova_compute_packages }}"
     when: is_compute
 
   - name: Discover hardware virtualization
@@ -29,4 +25,4 @@
     template: dest=/etc/nova/nova-compute.conf src=nova-compute.conf.j2
     notify:
       - restart nova compute
-    when: is_compute
+    when: is_compute and ansible_os_family == "Debian"

@@ -1,0 +1,7 @@
+---
+glance_packages:
+  - openstack-glance
+
+glance_services:
+  - openstack-glance-api
+  - openstack-glance-registry

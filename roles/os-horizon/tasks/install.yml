@@ -1,6 +1,12 @@
 ---
-  - name: Install horizon packages
+  - name: Install horizon packages (Ubuntu)
     apt: name=openstack-dashboard state=present
     notify: restart apache2
+    when: ansible_os_family == "Debian"
+
+  - name: Install horizon packages (CentOS)
+    yum: name=openstack-dashboard state=present
+    notify: restart httpd
+    when: ansible_os_family == "RedHat"
 
   # TODO: Configure

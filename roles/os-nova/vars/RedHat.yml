@@ -1,0 +1,21 @@
+---
+nova_controller_packages:
+  - openstack-nova-api
+  - openstack-nova-conductor
+  - openstack-nova-console
+  - openstack-nova-novncproxy
+  - openstack-nova-scheduler
+
+nova_controller_services:
+  - openstack-nova-api.service
+  - openstack-nova-conductor.service
+  - openstack-nova-consoleauth.service
+  - openstack-nova-novncproxy.service
+  - openstack-nova-scheduler.service
+
+nova_compute_packages:
+  - openstack-nova-compute
+
+nova_compute_services:
+  - libvirtd.service
+  - openstack-nova-compute.service

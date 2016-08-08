@@ -1,0 +1,13 @@
+---
+neutron_controller_packages:
+  - neutron-server
+  - neutron-plugin-ml2
+  - neutron-linuxbridge-agent
+  - neutron-l3-agent
+  - neutron-dhcp-agent
+  - neutron-metadata-agent
+neutron_controller_services: "{{ neutron_controller_packages }}"
+
+neutron_compute_packages:
+  - neutron-linuxbridge-agent
+neutron_compute_services: "{{ neutron_compute_packages }}"

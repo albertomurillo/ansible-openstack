@@ -1,17 +1,12 @@
 ---
   - name: Install neutron packages (controller)
-    apt: name={{ item }} state=present
-    with_items:
-      - neutron-server
-      - neutron-plugin-ml2
-      - neutron-linuxbridge-agent
-      - neutron-l3-agent
-      - neutron-dhcp-agent
-      - neutron-metadata-agent
+    package: name={{ item }} state=present
+    with_items: "{{ neutron_controller_packages }}"
     when: not is_compute
 
   - name: Install neutron packages (compute)
-    apt: name=neutron-linuxbridge-agent state=present
+    package: name={{ item }} state=present
+    with_items: "{{ neutron_compute_packages }}"
     when: is_compute
 
   - name: Configure neutron (controller)
@@ -35,3 +30,10 @@
     notify:
       - restart neutron compute
     when: is_compute
+
+  - name: Create link to ml2_conf.ini
+    file:
+      path: /etc/neutron/plugin.ini
+      src: /etc/neutron/plugins/ml2/ml2_conf.ini
+      state: link
+    when: ansible_os_family == "RedHat"

@@ -1,0 +1,7 @@
+---
+glance_packages:
+  - glance
+
+glance_services:
+  - glance-api
+  - glance-registry

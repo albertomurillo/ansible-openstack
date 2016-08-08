@@ -1,0 +1,9 @@
+---
+keystone_packages:
+  - openstack-keystone
+  - memcached
+  - httpd
+  - mod_wsgi
+
+webserver: httpd
+webserver_conf_dir: /etc/httpd/conf.d

@@ -1,26 +1,23 @@
 ---
   - name: Prevent keystone from starting at install time
     template: dest=/etc/init/keystone.override src=keystone.override.j2
+    when: ansible_os_family == "Debian"
 
   - name: Install keystone packages
-    apt: name={{ item }} state=present
-    with_items:
-      - memcached
-      - keystone
-      - apache2
-      - libapache2-mod-wsgi
+    package: name={{ item }} state=present
+    with_items: "{{ keystone_packages }}"
 
   - name: Configure keystone
     template: dest=/etc/keystone/keystone.conf src=keystone.conf.j2
-    notify: restart apache2
+    notify: restart {{ webserver }}
 
   # TODO: Configure apache server name
 
-  - name: Create keystone virtual host in apache
+  - name: Create keystone virtual host in {{ webserver }}
     template:
-      dest: /etc/apache2/sites-available/wsgi-keystone.conf
+      dest: "{{ webserver_conf_dir }}/wsgi-keystone.conf"
       src: wsgi-keystone.conf.j2
-    notify: restart apache2
+    notify: restart {{ webserver }}
 
   - name: Enable keystone virtual host
     file:
@@ -28,3 +25,4 @@
       dest: /etc/apache2/sites-enabled/wsgi-keystone.conf
       state: link
     notify: restart apache2
+    when: ansible_os_family == "Debian"

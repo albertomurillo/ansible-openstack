@@ -1,14 +1,10 @@
 ---
   - name: restart nova controller
     service: name={{ item }} enabled=yes state=restarted
-    with_items:
-      - nova-api
-      - nova-consoleauth
-      - nova-scheduler
-      - nova-conductor
-      - nova-novncproxy
+    with_items: "{{ nova_controller_services }}"
     when: not is_compute
 
   - name: restart nova compute
-    service: name=nova-compute enabled=yes state=restarted
+    service: name={{ item }} enabled=yes state=restarted
+    with_items: "{{ nova_compute_services }}"
     when: is_compute

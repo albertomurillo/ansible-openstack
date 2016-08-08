@@ -3,14 +3,10 @@
 
   - name: Start nova services (controller)
     service: name={{ item }} state=started
-    with_items:
-      - nova-api
-      - nova-consoleauth
-      - nova-scheduler
-      - nova-conductor
-      - nova-novncproxy
+    with_items: "{{ nova_controller_services }}"
     when: not is_compute
 
   - name: Start nova services (compute)
-    service: name=nova-compute state=started
+    service: name={{ item }} state=started
+    with_items: "{{ nova_compute_services }}"
     when: is_compute

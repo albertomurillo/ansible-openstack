@@ -64,3 +64,12 @@ username = neutron
 password = {{ neutron_password }}
 service_metadata_proxy = True
 metadata_proxy_shared_secret = {{ metadata_secret }}
+
+{% if ansible_os_family == "RedHat" %}
+[libvirt]
+{% if hwvirt.rc == 0 %}
+virt_type = kvm
+{% else %}
+virt_type = qemu
+{% endif %}
+{% endif %}

@@ -1,0 +1,12 @@
+---
+nova_controller_packages:
+  - nova-api
+  - nova-conductor
+  - nova-consoleauth
+  - nova-novncproxy
+  - nova-scheduler
+nova_controller_services: "{{ nova_controller_packages }}"
+
+nova_compute_packages:
+  - nova-compute
+nova_compute_services: "{{ nova_compute_packages }}"

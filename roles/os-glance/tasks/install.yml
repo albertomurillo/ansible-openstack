@@ -1,6 +1,7 @@
 ---
   - name: Install glance packages
-    apt: name=glance state=present
+    package: name={{ item }} state=present
+    with_items: "{{ glance_packages }}"
 
   - name: Configure glance
     template: dest=/etc/glance/{{ item }} src={{ item }}.j2
