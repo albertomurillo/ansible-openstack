@@ -44,7 +44,7 @@ password = {{ nova_password }}
 enabled = True
 vncserver_listen = 0.0.0.0
 vncserver_proxyclient_address = $my_ip
-novncproxy_base_url = http://{{ nova_fqdn }}}:6080/vnc_auto.html
+novncproxy_base_url = http://{{ nova_fqdn }}:6080/vnc_auto.html
 
 [glance]
 api_servers = http://{{ glance_fqdn }}:9292
