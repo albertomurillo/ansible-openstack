@@ -1,10 +1,5 @@
 ---
   - meta: flush_handlers
 
-  - name: Start apache2 services
-    service: name=apache2 state=started
-    when: ansible_os_family == "Debian"
-
-  - name: Start httpd services
-    service: name=httpd state=started
-    when: ansible_os_family == "RedHat"
+  - name: Start {{ webserver }} service
+    service: name={{ webserver }} state=started

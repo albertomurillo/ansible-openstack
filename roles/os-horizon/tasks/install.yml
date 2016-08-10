@@ -1,12 +1,10 @@
 ---
-  - name: Install horizon packages (Ubuntu)
-    apt: name=openstack-dashboard state=present
-    notify: restart apache2
-    when: ansible_os_family == "Debian"
+  - name: Install horizon packages
+    package: name=openstack-dashboard state=present
+    notify: restart {{ webserver }}
 
-  - name: Install horizon packages (CentOS)
-    yum: name=openstack-dashboard state=present
-    notify: restart httpd
-    when: ansible_os_family == "RedHat"
-
-  # TODO: Configure
+  - name: Configure horizon
+    template:
+      src: 10_custom_settings.py.j2
+      dest: /usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/10_custom_settings.py
+    notify: restart {{ webserver }}

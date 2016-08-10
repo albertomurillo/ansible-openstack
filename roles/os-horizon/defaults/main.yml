@@ -1,0 +1,9 @@
+---
+# Set this with the list of host/domain names that the application can serve.
+# For more information see:
+# https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
+allowed_hosts: "['*', ]"
+
+# Set this to True if running on multi-domain model. When this is enabled, it
+# will require user to enter the Domain name in addition to username for login.
+multidomain: False
