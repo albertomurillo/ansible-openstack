@@ -43,10 +43,9 @@ Vagrant.configure(2) do |config|
   config.vm.define "centos", autostart: false do |centos|
     centos.vm.box = "centos/7"
     centos.vm.provision "python", type: "shell", preserve_order: true, inline: <<-SHELL
+      sudo yum install -y centos-release-openstack-mitaka
       sudo yum update -y
-      sudo yum install -y epel-release
-      sudo yum update -y
-      sudo yum install -y vim libffi-devel openssl-devel python-devel python python-pip
+      sudo yum install -y vim python-pip python-devel openssl-devel python-crypto
     SHELL
   end
 
