@@ -1,0 +1,73 @@
+---
+  - name: Create cinder services
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ cinder_password }}"
+      login_project_name: "admin"
+      command: "ensure_service"
+      service_name: "{{ item.name }}"
+      service_type: "{{ item.type }}"
+      description: "OpenStack Block Storage"
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+    with_items:
+      - name: cinder
+        type: volume
+      - name: cinderv2
+        type: volumev2
+
+  - name: Create cinder endpoints
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_endpoint"
+      region_name: "RegionOne"
+      service_name: "{{ item.name }}"
+      service_type: "{{ item.type }}"
+      endpoint_list:
+        - url: "{{ item.url }}"
+          interface: "public"
+        - url: "{{ item.url }}"
+          interface: "internal"
+        - url: "http://{{ cinder_fqdn }}:8776/v1/%(tenant_id)s"
+          interface: "admin"
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+    with_items:
+      - name: cinder
+        type: volume
+        url: "http://{{ cinder_fqdn }}:8776/v1/%(tenant_id)s"
+      - name: cinderv2
+        type: volumev2
+        url: "http://{{ cinder_fqdn }}:8776/v2/%(tenant_id)s"
+
+  - name: Create cinder user
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_user"
+      user_name: cinder
+      project_name: admin
+      password: "{{ cinder_password }}"
+      domain_name: "Default"
+      email: cinder@example.com
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+
+  - name: Add cinder user to admin role
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_user_role"
+      user_name: cinder
+      project_name: service
+      role_name: admin
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes

@@ -29,6 +29,9 @@ nova_fqdn: localhost
 # FQDN for the neutron server
 neutron_fqdn: localhost
 
+# FQDN for the cinder server
+cinder_fqdn: localhost
+
 # Password for the admin user in openstack
 keystone_admin_password: secret
 
@@ -37,6 +40,9 @@ nova_password: secret
 
 # Password for the neutron user in openstack
 neutron_password: secret
+
+# Password for the cinder user in openstack
+cinder_password: secret
 
 # Metadata Secret
 metadata_secret: secret

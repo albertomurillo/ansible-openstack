@@ -1,16 +1,20 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+disk = './cinder.vdi'
+
 Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
+    unless File.exist?(disk)
+      vb.customize ['createhd', '--filename', disk, '--variant', 'Standard', '--size', 20 * 1024]
+    end
     vb.memory = "4096"
     vb.cpus = 2
   end
 
   config.vm.network "private_network", ip: "192.168.2.10"
   config.vm.synced_folder "./", "/ansible-openstack"
-
   config.vm.hostname = "controller.example.com"
   config.hostmanager.enabled = true
   config.hostmanager.ignore_private_ip = false
@@ -34,6 +38,9 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "ubuntu", autostart: false do |ubuntu|
     ubuntu.vm.box = "ubuntu/trusty64"
+    ubuntu.vm.provider :virtualbox do |v|
+      v.customize ['storageattach', :id, '--storagectl', 'SATAController', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk]
+    end
     ubuntu.vm.provision "python", type: "shell", preserve_order: true, inline: <<-SHELL
       sudo apt-get update
       sudo apt-get dist-upgrade -y
@@ -43,6 +50,9 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "centos", autostart: false do |centos|
     centos.vm.box = "centos/7"
+    centos.vm.provider :virtualbox do |v|
+      v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk]
+    end
     centos.vm.provision "python", type: "shell", preserve_order: true, inline: <<-SHELL
       sudo yum install -y centos-release-openstack-mitaka
       sudo yum update -y

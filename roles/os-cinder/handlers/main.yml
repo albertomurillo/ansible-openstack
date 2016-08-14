@@ -1,0 +1,10 @@
+---
+  - name: restart cinder controller
+    service: name={{ item }} enabled=yes state=restarted
+    with_items: "{{ cinder_controller_services }}"
+    when: not is_compute
+
+  - name: restart cinder storage
+    service: name={{ item }} enabled=yes state=restarted
+    with_items: "{{ cinder_storage_services }}"
+    when: is_storage

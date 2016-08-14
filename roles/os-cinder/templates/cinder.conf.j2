@@ -1,0 +1,39 @@
+[DEFAULT]
+{% if log_debug %}
+debug = True
+{% endif %}
+rpc_backend = rabbit
+auth_strategy = keystone
+my_ip = {{ mgmt_interface_ip }}
+enabled_backends = lvm
+
+[database]
+connection = mysql+pymysql://cinder:{{ cinder_database_password }}@{{ mysql_server }}/cinder
+
+[oslo_messaging_rabbit]
+rabbit_host = {{ rabbitmq_server }}
+rabbit_userid = {{ rabbitmq_openstack_user }}
+rabbit_password = {{ rabbitmq_openstack_password }}
+
+[keystone_authtoken]
+auth_uri = http://{{ keystone_fqdn }}:5000
+auth_url = http://{{ keystone_fqdn }}:35357
+memcached_servers = {{ keystone_fqdn }}:11211
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+project_name = service
+username = cinder
+password = {{ cinder_password }}
+
+[oslo_concurrency]
+lock_path = /var/lib/cinder/tmp
+
+[lvm]
+volume_driver = cinder.volume.drivers.lvm.LVMVolumeDriver
+volume_group = cinder-volumes
+iscsi_protocol = iscsi
+iscsi_helper = lioadm
+
+[DEFAULT]
+glance_api_servers = http://{{ glance_fqdn }}:9292

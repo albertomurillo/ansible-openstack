@@ -9,4 +9,7 @@ nova_controller_services: "{{ nova_controller_packages }}"
 
 nova_compute_packages:
   - nova-compute
-nova_compute_services: "{{ nova_compute_packages }}"
+  - libosinfo-1.0-0
+  - sysfsutils
+nova_compute_services:
+  - nova-compute

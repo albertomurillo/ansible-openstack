@@ -1,0 +1,16 @@
+---
+cinder_controller_packages:
+  - openstack-cinder
+
+cinder_controller_services:
+  - openstack-cinder-api.service
+  - openstack-cinder-scheduler.service
+
+cinder_storage_packages:
+  - lvm2
+  - openstack-cinder
+  - targetcli
+
+cinder_storage_services:
+  - openstack-cinder-volume.service
+  - target.service

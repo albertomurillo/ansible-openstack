@@ -1,0 +1,12 @@
+---
+  - meta: flush_handlers
+
+  - name: Start cinder services (controller)
+    service: name={{ item }} enabled=yes state=started
+    with_items: "{{ cinder_controller_services }}"
+    when: not is_storage
+
+  - name: Start cinder services (storage)
+    service: name={{ item }} enabled=yes state=started
+    with_items: "{{ cinder_storage_services }}"
+    when: is_storage

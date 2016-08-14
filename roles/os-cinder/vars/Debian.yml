@@ -1,0 +1,14 @@
+---
+cinder_controller_packages:
+  - cinder-api
+  - cinder-scheduler
+
+cinder_controller_services: "{{ cinder_controller_packages }}"
+
+cinder_storage_packages:
+  - lvm2
+  - cinder-volume
+
+cinder_storage_services:
+  - tgt
+  - cinder-volume

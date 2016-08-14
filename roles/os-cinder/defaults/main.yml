@@ -1,0 +1,12 @@
+---
+# Password for the cinder user in the database
+cinder_database_password: secret
+
+# When set to True, the role will install the compute node part.
+is_compute: False
+
+# When set to True, the role will install the storage node part.
+is_storage: False
+
+# A list of devices to use with cinder
+cinder_lvm2_devices: []

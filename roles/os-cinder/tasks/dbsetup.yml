@@ -1,0 +1,30 @@
+---
+  - name: Create mysql cinder database
+    delegate_to: "{{ mysql_server }}"
+    mysql_db:
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      name: cinder
+      state: present
+      encoding: utf8
+
+  - name: Create mysql cinder user
+    delegate_to: "{{ mysql_server }}"
+    mysql_user:
+      name: cinder
+      password: "{{ cinder_database_password }}"
+      priv: cinder.*:ALL
+      state: present
+      host: "{{ item }}"
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+    with_items:
+       - "%"
+       - "localhost"
+
+  - name: Perform a cinder DB sync
+    command: "cinder-manage db sync"
+    become: yes
+    become_user: cinder
+    register: result
+    changed_when: "'migrate.versioning.api' in result.stderr and result.rc == 0"

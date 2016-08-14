@@ -1,0 +1,21 @@
+---
+  - name: Install cinder packages (controller)
+    package: name={{ item }} state=present
+    with_items: "{{ cinder_controller_packages }}"
+    when: not is_storage
+
+  - name: Install cinder packages (storage)
+    package: name={{ item }} state=present
+    with_items: "{{ cinder_storage_packages }}"
+    when: is_storage
+
+  - name: Configure cinder
+    template: dest=/etc/cinder/cinder.conf src=cinder.conf.j2
+    notify:
+      - restart cinder controller
+      - restart cinder storage
+
+  - name: Create cinder-volumes VG
+    lvg: pvs={{ cinder_lvm2_devices }} state=present vg=cinder-volumes
+    when: is_storage
+    notify: restart cinder storage
