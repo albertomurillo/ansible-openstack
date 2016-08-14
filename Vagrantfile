@@ -36,6 +36,7 @@ Vagrant.configure(2) do |config|
     ubuntu.vm.box = "ubuntu/trusty64"
     ubuntu.vm.provision "python", type: "shell", preserve_order: true, inline: <<-SHELL
       sudo apt-get update
+      sudo apt-get dist-upgrade -y
       sudo apt-get install -y libffi-dev libssl-dev python-dev python python-pip
     SHELL
   end
