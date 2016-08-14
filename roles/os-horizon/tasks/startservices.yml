@@ -2,4 +2,4 @@
   - meta: flush_handlers
 
   - name: Start {{ webserver }} service
-    service: name={{ webserver }} state=started
+    service: name={{ webserver }} enabled=yes state=started

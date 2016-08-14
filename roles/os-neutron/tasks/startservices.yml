@@ -2,7 +2,7 @@
   - meta: flush_handlers
 
   - name: Start neutron services (controller)
-    service: name={{ item }} state=started
+    service: name={{ item }} enabled=yes state=started
     with_items:
       - neutron-server
       - neutron-linuxbridge-agent
@@ -12,5 +12,5 @@
     when: not is_compute
 
   - name: Start neutron services (compute)
-    service: name=neutron-linuxbridge-agent state=started
+    service: name=neutron-linuxbridge-agent enabled=yes state=started
     when: is_compute

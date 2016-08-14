@@ -2,11 +2,11 @@
   - meta: flush_handlers
 
   - name: Start nova services (controller)
-    service: name={{ item }} state=started
+    service: name={{ item }} enabled=yes state=started
     with_items: "{{ nova_controller_services }}"
     when: not is_compute
 
   - name: Start nova services (compute)
-    service: name={{ item }} state=started
+    service: name={{ item }} enabled=yes state=started
     with_items: "{{ nova_compute_services }}"
     when: is_compute

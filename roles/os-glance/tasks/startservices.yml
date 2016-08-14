@@ -2,5 +2,5 @@
   - meta: flush_handlers
 
   - name: Start glance services
-    service: name={{ item }} state=started
+    service: name={{ item }} enabled=yes state=started
     with_items: "{{ glance_services }}"
