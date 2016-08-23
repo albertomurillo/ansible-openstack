@@ -14,3 +14,5 @@ cinder_storage_packages:
 cinder_storage_services:
   - openstack-cinder-volume.service
   - target.service
+
+iscsi_helper: lioadm

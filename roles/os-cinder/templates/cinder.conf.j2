@@ -33,7 +33,7 @@ lock_path = /var/lib/cinder/tmp
 volume_driver = cinder.volume.drivers.lvm.LVMVolumeDriver
 volume_group = cinder-volumes
 iscsi_protocol = iscsi
-iscsi_helper = lioadm
+iscsi_helper = {{ iscsi_helper }}
 
 [DEFAULT]
 glance_api_servers = http://{{ glance_fqdn }}:9292

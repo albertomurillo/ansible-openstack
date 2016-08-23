@@ -12,3 +12,5 @@ cinder_storage_packages:
 cinder_storage_services:
   - tgt
   - cinder-volume
+
+iscsi_helper: tgtadm
