@@ -1,3 +1,20 @@
 ---
 # Password for the keystone user in the database
 keystone_database_password: secret
+
+# # A list of projects to create
+# keystone_projects:
+#   - project: demo
+#     description: "Demo Project"
+
+# # A list of users to create
+# keystone_users:
+#   - user: demo
+#     password: secret
+#     project: demo
+
+# # Assign certain role to users
+# keystone_user_roles:
+#   - user: demo
+#     project: demo
+#     role: user

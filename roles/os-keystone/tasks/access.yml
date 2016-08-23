@@ -1,29 +1,4 @@
 ---
-  - name: Create keystone service
-    keystone:
-      command: "ensure_service"
-      service_name: "keystone"
-      service_type: "identity"
-      description: "OpenStack Identity"
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      insecure: yes
-
-  - name: Create custom services
-    keystone:
-      command: "ensure_service"
-      service_name: "{{ item.service_name }}"
-      service_type: "{{ item.service_type }}"
-      description: "{{ item.description | default('') }}"
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      login_user: "admin"
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      insecure: yes
-    with_items: "{{ keystone_services | default([]) }}"
-
   - name: Create keystone endpoints
     keystone:
       command: "ensure_endpoint"
@@ -58,8 +33,8 @@
   - name: Create custom projects
     keystone:
       command: ensure_project
-      project_name: "{{ item.project_name }}"
-      domain_name: Default
+      project_name: "{{ item.project }}"
+      domain_name: "{{ item.domain | default('Default') }}"
       description: "{{ item.description | default('') }}"
       endpoint: "http://{{ keystone_fqdn }}:35357/v3"
       login_user: admin
@@ -92,11 +67,11 @@
   - name: Create custom users
     keystone:
       command: "ensure_user"
-      user_name: "{{ item.user_name }}"
-      project_name: "{{ item.project_name }}"
+      user_name: "{{ item.user }}"
+      project_name: "{{ item.project }}"
       password: "{{ item.password }}"
       email: "{{ item.email | default('') }}"
-      domain_name: "Default"
+      domain_name: "{{ item.domain | default('Default') }}"
       endpoint: "http://{{ keystone_fqdn }}:35357/v3"
       login_user: admin
       login_password: "{{ keystone_admin_password }}"
@@ -108,9 +83,9 @@
   - name: Map users and roles
     keystone:
       command: "ensure_user_role"
-      user_name: "{{ item.user_name }}"
-      project_name: "{{ item.project_name }}"
-      role_name: "{{ item.role_name }}"
+      user_name: "{{ item.user }}"
+      project_name: "{{ item.project }}"
+      role_name: "{{ item.role }}"
       endpoint: "http://{{ keystone_fqdn }}:35357/v3"
       login_user: "admin"
       login_password: "{{ keystone_admin_password }}"

@@ -33,3 +33,18 @@ cinder_password: secret
 cinder_database_password: secret
 cinder_lvm2_devices:
   - /dev/sdb
+
+# Create demo user and project
+keystone_projects:
+  - project: demo
+    description: "Demo Project"
+
+keystone_users:
+  - user: demo
+    password: secret
+    project: demo
+
+keystone_user_roles:
+  - user: demo
+    project: demo
+    role: user
