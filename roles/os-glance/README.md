@@ -26,7 +26,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: controller
       roles:
-        - os-keystone
+        - os-glance
 
 License
 -------
