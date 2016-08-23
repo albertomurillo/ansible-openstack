@@ -15,6 +15,9 @@ keystone_database_password: secret
 glance_fqdn: controller.example.com
 glance_password: secret
 glance_database_password: secret
+# glance_images:
+#   - name: cirros
+#     filename: cirros-0.3.4-x86_64-disk.img
 
 # https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-nova
 nova_fqdn: controller.example.com
@@ -38,12 +41,10 @@ cinder_lvm2_devices:
 keystone_projects:
   - project: demo
     description: "Demo Project"
-
 keystone_users:
   - user: demo
     password: secret
     project: demo
-
 keystone_user_roles:
   - user: demo
     project: demo
