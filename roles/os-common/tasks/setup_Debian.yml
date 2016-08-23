@@ -11,9 +11,11 @@
     apt_repository:
       repo: deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/mitaka main
       state: present
+    register: openstack_repo
 
   - name: Update packages
     apt: update_cache=yes upgrade=dist
+    when: openstack_repo | changed
 
   - name: Install OpenStack Client
     apt: name=python-openstackclient state=present

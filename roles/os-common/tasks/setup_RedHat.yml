@@ -1,9 +1,11 @@
 ---
   - name: Install centos-release-openstack-mitaka
     yum: name=centos-release-openstack-mitaka state=present
+    register: openstack-repo
 
   - name: Update packages
     yum: name=* state=latest
+    when: openstack_repo | changed
 
   - name: Install OpenStack Client
     yum: name={{ item }} state=present
