@@ -12,9 +12,10 @@
     local_action: template src=openrc.j2 dest=~/openrc mode=0600
 
   - name: Create ~/.config/openstack directory
-    local_action: command mkdir -p ~/.config/openstack
-    args:
-      creates: ~/.config/openstack
+    file: path={{ item }} state=directory
+    with_items:
+      - ~/.config
+      - ~/.config/openstack
 
   - name: Create clouds.yaml file
     local_action: template src=clouds.yaml.j2 dest=~/.config/openstack/clouds.yaml mode=0600

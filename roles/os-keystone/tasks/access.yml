@@ -1,94 +1,43 @@
 ---
-  - name: Create keystone endpoints
-    keystone:
-      command: "ensure_endpoint"
-      region_name: "RegionOne"
-      service_name: "keystone"
-      service_type: "identity"
-      endpoint_list:
-        - url: "http://{{ keystone_fqdn }}:5000/v3"
-          interface: "public"
-        - url: "http://{{ keystone_fqdn }}:35357/v3"
-          interface: "admin"
-        - url: "http://{{ keystone_fqdn }}:5000/v3"
-          interface: "internal"
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      login_user: "admin"
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      insecure: yes
-
   - name: Create service project
-    keystone:
-      command: ensure_project
-      project_name: service
-      domain_name: Default
+    os_project:
+      cloud: default
+      name: service
       description: Service Project
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      insecure: yes
 
   - name: Create custom projects
-    keystone:
-      command: ensure_project
-      project_name: "{{ item.project }}"
-      domain_name: "{{ item.domain | default('Default') }}"
+    os_project:
+      cloud: default
+      name: "{{ item.name }}"
+      domain_id: "{{ item.domain_id | default('default') }}"
       description: "{{ item.description | default('') }}"
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      insecure: yes
     with_items: "{{ keystone_projects | default([]) }}"
 
   - name: Create user role
-    keystone:
-      command: "ensure_role"
-      role_name: "user"
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      insecure: yes
+    os_keystone_role:
+      cloud: default
+      name: user
 
   - name: Create custom roles
-    keystone:
-      command: "ensure_role"
-      role_name: "{{ item }}"
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      insecure: yes
+    os_keystone_role:
+      cloud: default
+      name: "{{ item }}"
     with_items: "{{ keystone_roles | default([]) }}"
 
   - name: Create custom users
-    keystone:
-      command: "ensure_user"
-      user_name: "{{ item.user }}"
-      project_name: "{{ item.project }}"
+    os_user:
+      cloud: default
+      name: "{{ item.name }}"
+      default_project: "{{ item.project }}"
       password: "{{ item.password }}"
       email: "{{ item.email | default('') }}"
-      domain_name: "{{ item.domain | default('Default') }}"
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      insecure: yes
+      domain: "{{ item.domain | default('Default') }}"
     with_items: "{{ keystone_users | default([]) }}"
-    no_log: true
 
   - name: Map users and roles
-    keystone:
-      command: "ensure_user_role"
-      user_name: "{{ item.user }}"
-      project_name: "{{ item.project }}"
-      role_name: "{{ item.role }}"
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      login_user: "admin"
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      insecure: yes
+    os_user_role:
+      cloud: default
+      user: "{{ item.user }}"
+      project: "{{ item.project }}"
+      role: "{{ item.role }}"
     with_items: "{{ keystone_user_roles | default([]) }}"

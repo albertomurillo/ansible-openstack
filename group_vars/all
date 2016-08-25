@@ -39,10 +39,10 @@ cinder_lvm2_devices:
 
 # Create demo user and project
 keystone_projects:
-  - project: demo
+  - name: demo
     description: "Demo Project"
 keystone_users:
-  - user: demo
+  - name: demo
     password: secret
     project: demo
 keystone_user_roles:

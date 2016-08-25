@@ -4,12 +4,12 @@ keystone_database_password: secret
 
 # # A list of projects to create
 # keystone_projects:
-#   - project: demo
+#   - name: demo
 #     description: "Demo Project"
 
 # # A list of users to create
 # keystone_users:
-#   - user: demo
+#   - name: demo
 #     password: secret
 #     project: demo
 
