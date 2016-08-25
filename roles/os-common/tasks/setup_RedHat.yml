@@ -1,7 +1,7 @@
 ---
   - name: Install centos-release-openstack-mitaka
     yum: name=centos-release-openstack-mitaka state=present
-    register: openstack-repo
+    register: openstack_repo
 
   - name: Update packages
     yum: name=* state=latest
