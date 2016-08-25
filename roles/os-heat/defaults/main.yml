@@ -1,0 +1,9 @@
+---
+# Password for the heat user in the database
+heat_database_password: secret
+
+# Password for the heat user in openstack
+heat_password: secret
+
+# Password for the heat_domain_admin user in openstack
+heat_domain_admin_password: secret

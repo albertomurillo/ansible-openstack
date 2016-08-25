@@ -1,0 +1,10 @@
+---
+  - name: Install heat packages
+    package: name={{ item }} state=present
+    with_items: "{{ heat_packages }}"
+
+  - name: Configure heat
+    template: dest=/etc/heat/{{ item }} src={{ item }}.j2
+    with_items:
+      - heat.conf
+    notify: restart heat
