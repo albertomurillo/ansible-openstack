@@ -23,6 +23,7 @@
       - os-neutron
       - os-horizon
       - os-cinder
+      - os-heat
     # environment:
     #   http_proxy: http://proxy-server.example.com:8080
     #   no_proxy: localhost,127.0.0.1,.example.com

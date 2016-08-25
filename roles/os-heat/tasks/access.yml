@@ -1,0 +1,91 @@
+---
+  - name: Create heat services
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_service"
+      service_name: "{{ item.name }}"
+      service_type: "{{ item.type }}"
+      description: "Orchestration"
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+    with_items:
+      - name: heat
+        type: orchestration
+      - name: heat-cfn
+        type: cloudformation
+
+  - name: Create heat endpoints
+    delegate_to: "{{ keystone_fqdn }}"
+    keystone:
+      login_user: admin
+      login_password: "{{ keystone_admin_password }}"
+      login_project_name: "admin"
+      command: "ensure_endpoint"
+      region_name: "RegionOne"
+      service_name: "{{ item.service }}"
+      service_type: "{{ item.type }}"
+      endpoint_list:
+        - url: "{{ item.url }}"
+          interface: "public"
+        - url: "{{ item.url }}"
+          interface: "internal"
+        - url: "{{ item.url }}"
+          interface: "admin"
+      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
+      insecure: yes
+    with_items:
+      - service: heat
+        type: orchestration
+        url: "http://{{ heat_fqdn }}:8004/v1/%(tenant_id)s"
+      - service: heat-cfn
+        type: cloudformation
+        url: "http://{{ heat_fqdn }}:8000/v1"
+
+  - name: Create heat domain
+    os_keystone_domain:
+      cloud: default
+      name: heat
+      description: Stack projects and users
+    register: heat_domain
+
+  - name: Create heat roles
+    os_keystone_role:
+      cloud: default
+      name: "{{ item }}"
+    with_items:
+      - heat_stack_owner
+      - heat_stack_user
+
+  - name: Create heat users
+    os_user:
+      cloud: default
+      name: "{{ item.name }}"
+      password: "{{ item.password }}"
+      domain: "{{ item.domain | default('Default')}} "
+    with_items:
+      - name: heat
+        password: "{{ heat_password }}"
+      - name: heat_domain_admin
+        password: "{{ heat_domain_admin_password }}"
+        domain: heat
+
+  - name: Assign roles to heat users
+    os_user_role:
+      cloud: default
+      user: "{{ item.user }}"
+      domain: "{{ item.domain | default(omit) }}"
+      project: "{{ item.project | default(omit) }}"
+      role: "{{ item.role }}"
+    with_items:
+      - user: heat
+        project: service
+        role: admin
+      - user: demo
+        project: demo
+        role: heat_stack_owner
+      - user: heat_domain_admin
+        domain: "{{ heat_domain.id }}"
+        role: admin

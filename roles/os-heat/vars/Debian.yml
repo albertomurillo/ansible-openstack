@@ -1,0 +1,7 @@
+---
+heat_packages:
+  - heat-api
+  - heat-api-cfn
+  - heat-engine
+
+heat_services: "{{ heat_packages }}"

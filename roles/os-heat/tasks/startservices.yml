@@ -1,0 +1,6 @@
+---
+  - meta: flush_handlers
+
+  - name: Start heat services
+    service: name={{ item }} enabled=yes state=started
+    with_items: "{{ heat_services }}"

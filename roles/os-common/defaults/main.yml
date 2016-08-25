@@ -32,6 +32,9 @@ neutron_fqdn: localhost
 # FQDN for the cinder server
 cinder_fqdn: localhost
 
+# FQDN for the heat server
+heat_fqdn: localhost
+
 # Password for the admin user in openstack
 keystone_admin_password: secret
 
@@ -43,6 +46,12 @@ neutron_password: secret
 
 # Password for the cinder user in openstack
 cinder_password: secret
+
+# Password for the heat user in openstack
+heat_password: secret
+
+# Password for the heat_domain_admin user in openstack
+heat_domain_admin_password: secret
 
 # Metadata Secret
 metadata_secret: secret
