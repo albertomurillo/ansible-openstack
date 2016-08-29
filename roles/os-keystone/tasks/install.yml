@@ -1,11 +1,14 @@
 ---
-  - name: Prevent keystone from starting at install time
+  - name: Prevent keystone from starting at install time (trusty)
     template: dest=/etc/init/keystone.override src=keystone.override.j2
-    when: ansible_os_family == "Debian"
+    when: ansible_distribution_release == "trusty"
 
   - name: Install keystone packages
     package: name={{ item }} state=present
     with_items: "{{ keystone_packages }}"
+
+  - name: Stop keystone services (xenial)
+    service: name=keystone enabled=no state=stopped
 
   - name: Configure keystone
     template: dest=/etc/keystone/keystone.conf src=keystone.conf.j2

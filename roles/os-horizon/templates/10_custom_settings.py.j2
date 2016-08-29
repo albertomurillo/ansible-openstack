@@ -21,5 +21,3 @@ CACHES = {
 OPENSTACK_HOST = "{{ keystone_fqdn }}"
 OPENSTACK_KEYSTONE_URL = "http://%s:5000/v3" % OPENSTACK_HOST
 OPENSTACK_KEYSTONE_DEFAULT_ROLE = "user"
-
-TIME_ZONE = "{{ ansible_date_time.tz }}"
