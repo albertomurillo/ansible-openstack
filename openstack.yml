@@ -1,17 +1,21 @@
 ---
   - hosts: all
+    become: yes
     roles:
       - ericsysmin.chrony
 
   - hosts: dbservers
+    become: yes
     roles:
       - geerlingguy.mysql
 
   - hosts: mqservers
+    become: yes
     roles:
       - Stouts.rabbitmq
 
   - hosts: controller
+    become: yes
     roles:
       - os-keystone
       - os-glance
@@ -24,6 +28,7 @@
     #   no_proxy: localhost,127.0.0.1,.example.com
 
   - hosts: compute
+    become: yes
     roles:
       - os-nova
       - os-neutron
@@ -31,6 +36,7 @@
       is_compute: True
 
   - hosts: storage
+    become: yes
     roles:
       - os-cinder
     vars:
