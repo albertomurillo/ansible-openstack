@@ -2,8 +2,5 @@
 keystone_packages:
   - memcached
   - keystone
-  - apache2
-  - libapache2-mod-wsgi
 
 webserver: apache2
-webserver_conf_dir: /etc/apache2/sites-available

@@ -8,7 +8,7 @@
       command: "ensure_service"
       service_name: "glance"
       service_type: "image"
-      description: "Glance Image Service"
+      description: "OpenStack Image"
       endpoint: "http://{{ keystone_fqdn }}:35357/v3"
       insecure: yes
 

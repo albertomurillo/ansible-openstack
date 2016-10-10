@@ -1,6 +1,6 @@
 galaxy_info:
   author: Alberto Murillo
-  description: Role to deploy Glance (Mitaka)
+  description: Role to deploy Glance (Newton)
   company: Intel
 
   issue_tracker_url: https://github.com/albertomurillo/ansible-openstack/issues
@@ -12,7 +12,6 @@ galaxy_info:
   platforms:
   - name: Ubuntu
     versions:
-    - trusty
     - xenial
   - name: CentOS
     versions:
@@ -21,7 +20,7 @@ galaxy_info:
   galaxy_tags:
     - openstack
     - glance
-    - mitaka
+    - newton
 
 dependencies:
   - os-common

@@ -12,7 +12,6 @@ galaxy_info:
   platforms:
   - name: Ubuntu
     versions:
-    - trusty
     - xenial
   - name: CentOS
     versions:
@@ -20,6 +19,6 @@ galaxy_info:
 
   galaxy_tags:
     - openstack
-    - mitaka
+    - newton
 
 dependencies: []

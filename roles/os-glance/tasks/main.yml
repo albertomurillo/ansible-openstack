@@ -7,13 +7,13 @@
   - include: access.yml
   - include: startservices.yml
 
-  - name: Create images
-    os_image:
-      cloud: default
-      name: "{{ item.name }}"
-      filename: "{{ item.filename }}"
-      container_format: "{{ item.container_format | default('bare') }}"
-      disk_format: "{{ item.disk_format | default('qcow2') }}"
-      is_public: "{{ item.public | default(True) }}"
-    with_items: "{{ glance_images | default([]) }}"
-    connection: local
+  # - name: Create images
+  #   os_image:
+  #     cloud: default
+  #     name: "{{ item.name }}"
+  #     filename: "{{ item.filename }}"
+  #     container_format: "{{ item.container_format | default('bare') }}"
+  #     disk_format: "{{ item.disk_format | default('qcow2') }}"
+  #     is_public: "{{ item.public | default(True) }}"
+  #   with_items: "{{ glance_images | default([]) }}"
+  #   connection: local

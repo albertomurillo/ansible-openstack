@@ -4,16 +4,14 @@
     with_items:
       - software-properties-common
       - ubuntu-cloud-keyring
-    when: ansible_distribution_release == "trusty"
 
   # NOTE: cloud-archive format is not supported in ansible
   # See issue https://github.com/ansible/ansible-modules-core/issues/292
-  - name: Add cloud-archive:mitaka repository
+  - name: Add cloud-archive:newton repository
     apt_repository:
-      repo: deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/mitaka main
+      repo: deb http://ubuntu-cloud.archive.canonical.com/ubuntu xenial-updates/newton main
       state: present
     register: openstack_repo
-    when: ansible_distribution_release == "trusty"
 
   - name: Update packages
     apt: update_cache=yes upgrade=dist

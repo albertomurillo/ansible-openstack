@@ -3,7 +3,7 @@ os-common
 
 This role do two things:
 * Defines common variables for other openstack roles
-* Install repositories containing OpenStack Mitaka packages
+* Install repositories containing OpenStack Newton packages
 
 Requirements
 ------------

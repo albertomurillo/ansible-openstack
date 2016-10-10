@@ -1,15 +1,14 @@
 ALLOWED_HOSTS = {{ allowed_hosts }}
 
 OPENSTACK_API_VERSIONS = {
-    "data-processing": 1.1,
     "identity": 3,
+    "image": 2,
     "volume": 2,
-    "compute": 2,
 }
 
 OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = {{ 'True' if (multidomain) else 'False' }}
 
-OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = "default"
+OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = "Default"
 
 CACHES = {
     'default': {

@@ -3,6 +3,7 @@
     os_project:
       cloud: default
       name: service
+      domain_id: default
       description: Service Project
 
   - name: Create custom projects

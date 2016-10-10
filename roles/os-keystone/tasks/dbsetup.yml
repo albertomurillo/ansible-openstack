@@ -28,8 +28,3 @@
     become_user: keystone
     register: result
     changed_when: result.stderr != "" and result.rc == 0
-
-  - name: Initialize fernet keys
-    command: "keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone"
-    register: result
-    changed_when: "'Created a new key' in result.stderr"
