@@ -1,6 +1,6 @@
 ---
-  - name: Install centos-release-openstack-mitaka
-    yum: name=centos-release-openstack-mitaka state=present
+  - name: Install centos-release-openstack-newton
+    yum: name=centos-release-openstack-newton state=present
     register: openstack_repo
 
   - name: Update packages

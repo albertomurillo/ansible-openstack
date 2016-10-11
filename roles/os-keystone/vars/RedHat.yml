@@ -6,4 +6,3 @@ keystone_packages:
   - mod_wsgi
 
 webserver: httpd
-webserver_conf_dir: /etc/httpd/conf.d

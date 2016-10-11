@@ -9,7 +9,7 @@ Vagrant.configure(2) do |config|
     unless File.exist?(disk)
       vb.customize ['createhd', '--filename', disk, '--variant', 'Standard', '--size', 20 * 1024]
     end
-    vb.memory = "4096"
+    vb.memory = "6144"
     vb.cpus = 2
   end
 
@@ -54,9 +54,10 @@ Vagrant.configure(2) do |config|
       v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk]
     end
     centos.vm.provision "python", type: "shell", preserve_order: true, inline: <<-SHELL
-      sudo yum install -y centos-release-openstack-mitaka
-      sudo yum update -y
-      sudo yum install -y vim python-pip python-devel openssl-devel python-crypto
+      sudo yum upgrade -y
+      sudo yum install -y centos-release-openstack-newton
+      sudo yum upgrade -y
+      sudo yum install -y vim python-pip python-devel openssl-devel python-crypto python-requests
     SHELL
   end
 

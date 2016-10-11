@@ -8,4 +8,12 @@
     template: dest=/etc/keystone/keystone.conf src=keystone.conf.j2
     notify: restart {{ webserver }}
 
+  - name: Enable keystone in httpd (CentOS)
+    file:
+      src: /usr/share/keystone/wsgi-keystone.conf
+      dest: /etc/httpd/conf.d/wsgi-keystone.conf
+      state: link
+    when: ansible_os_family == "RedHat"
+    notify: restart {{ webserver }}
+
   # TODO: Configure apache server name
