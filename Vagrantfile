@@ -37,9 +37,9 @@ Vagrant.configure(2) do |config|
   SHELL
 
   config.vm.define "ubuntu", autostart: false do |ubuntu|
-    ubuntu.vm.box = "ubuntu/trusty64"
+    ubuntu.vm.box = "kaorimatz/ubuntu-16.04-amd64"
     ubuntu.vm.provider :virtualbox do |v|
-      v.customize ['storageattach', :id, '--storagectl', 'SATAController', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk]
+      v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk]
     end
     ubuntu.vm.provision "python", type: "shell", preserve_order: true, inline: <<-SHELL
       sudo apt-get update
