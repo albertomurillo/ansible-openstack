@@ -51,7 +51,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "centos", autostart: false do |centos|
     centos.vm.box = "centos/7"
     centos.vm.provider :virtualbox do |v|
-      v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk]
+      v.customize ['storageattach', :id, '--storagectl', 'IDE', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk]
     end
     centos.vm.provision "python", type: "shell", preserve_order: true, inline: <<-SHELL
       sudo yum upgrade -y
