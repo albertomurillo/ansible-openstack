@@ -33,29 +33,17 @@
       insecure: yes
 
   - name: Create nova user
-    delegate_to: "{{ keystone_fqdn }}"
-    keystone:
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      command: "ensure_user"
-      user_name: nova
-      project_name: service
+    os_user:
+      cloud: default
+      name: nova
+      default_project: service
       password: "{{ nova_password }}"
-      domain_name: "Default"
       email: nova@example.com
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      insecure: yes
+      domain: Default
 
   - name: Add nova user to admin role
-    delegate_to: "{{ keystone_fqdn }}"
-    keystone:
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      command: "ensure_user_role"
-      user_name: nova
-      project_name: service
-      role_name: admin
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      insecure: yes
+    os_user_role:
+      cloud: default
+      user: nova
+      project: service
+      role: admin

@@ -45,29 +45,17 @@
         url: "http://{{ cinder_fqdn }}:8776/v2/%(tenant_id)s"
 
   - name: Create cinder user
-    delegate_to: "{{ keystone_fqdn }}"
-    keystone:
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      command: "ensure_user"
-      user_name: cinder
-      project_name: service
+    os_user:
+      cloud: default
+      name: cinder
+      default_project: service
       password: "{{ cinder_password }}"
-      domain_name: "Default"
       email: cinder@example.com
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      insecure: yes
+      domain: Default
 
   - name: Add cinder user to admin role
-    delegate_to: "{{ keystone_fqdn }}"
-    keystone:
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      command: "ensure_user_role"
-      user_name: cinder
-      project_name: service
-      role_name: admin
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      insecure: yes
+    os_user_role:
+      cloud: default
+      user: cinder
+      project: service
+      role: admin
