@@ -52,7 +52,7 @@
       login_project_name: "admin"
       command: "ensure_user"
       user_name: cinder
-      project_name: admin
+      project_name: service
       password: "{{ cinder_password }}"
       domain_name: "Default"
       email: cinder@example.com

@@ -40,7 +40,7 @@
       login_project_name: "admin"
       command: "ensure_user"
       user_name: nova
-      project_name: admin
+      project_name: service
       password: "{{ nova_password }}"
       domain_name: "Default"
       email: nova@example.com

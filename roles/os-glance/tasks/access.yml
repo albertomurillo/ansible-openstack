@@ -40,7 +40,7 @@
       login_project_name: "admin"
       command: "ensure_user"
       user_name: glance
-      project_name: admin
+      project_name: service
       password: "{{ glance_password }}"
       domain_name: "Default"
       email: glance@example.com
