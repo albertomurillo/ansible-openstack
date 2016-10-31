@@ -1,0 +1,26 @@
+---
+  - hosts: all
+    roles:
+      - ericsysmin.chrony
+      - geerlingguy.mysql
+      - Stouts.rabbitmq
+      - os-keystone
+      - os-glance
+      - os-nova
+      - os-neutron
+      - os-horizon
+      - os-cinder
+      - os-heat
+
+  - hosts: all
+    roles:
+      - os-nova
+      - os-neutron
+    vars:
+      is_compute: True
+
+  - hosts: all
+    roles:
+      - os-cinder
+    vars:
+      is_storage: True

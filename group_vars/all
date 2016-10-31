@@ -1,18 +1,20 @@
 ---
+controller_fqdn: controller.example.com
+
 # https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-common
-mysql_server: controller.example.com
+mysql_server: "{{ controller_fqdn }}"
 mysql_root_password: secret
 rabbitmq_server: controller.example.com
 rabbitmq_openstack_user: openstack
 rabbitmq_openstack_password: secret
 
 # https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-keystone
-keystone_fqdn: controller.example.com
+keystone_fqdn: "{{ controller_fqdn }}"
 keystone_admin_password: secret
 keystone_database_password: secret
 
 # https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-glance
-glance_fqdn: controller.example.com
+glance_fqdn: "{{ controller_fqdn }}"
 glance_password: secret
 glance_database_password: secret
 # glance_images:
@@ -20,18 +22,18 @@ glance_database_password: secret
 #     filename: cirros-0.3.4-x86_64-disk.img
 
 # https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-nova
-nova_fqdn: controller.example.com
+nova_fqdn: "{{ controller_fqdn }}"
 nova_password: secret
 nova_database_password: secret
 
 # https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-neutron
-neutron_fqdn: controller.example.com
+neutron_fqdn: "{{ controller_fqdn }}"
 neutron_password: secret
 neutron_database_password: secret
 metadata_secret: secret
 
 # https://github.com/albertomurillo/ansible-openstack/tree/master/roles/os-cinder
-cinder_fqdn: controller.example.com
+cinder_fqdn: "{{ controller_fqdn }}"
 cinder_password: secret
 cinder_database_password: secret
 cinder_lvm2_devices:

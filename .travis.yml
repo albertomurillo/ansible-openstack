@@ -1,0 +1,25 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  - distro: ubuntu1604
+    init: /lib/systemd/systemd
+    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+  - distro: centos7
+    init: /usr/lib/systemd/systemd
+    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+
+before_install:
+  - 'docker pull geerlingguy/docker-${distro}-ansible:latest'
+
+before_script:
+  - docker --version
+  - docker run --detach --name ${distro} --network=host --volume=${PWD}:/ansible-openstack ${run_opts} geerlingguy/docker-${distro}-ansible:latest ${init}
+
+script:
+  - docker exec --tty ${distro} /bin/bash -c 'apt-get update'
+  - docker exec --tty ${distro} /bin/bash -c 'cd /ansible-openstack && ansible-galaxy install -r requirements.yml'
+  - docker exec --tty ${distro} /bin/bash -c 'cd /ansible-openstack && ansible-playbook test.yml --syntax-check'
+  - docker exec --tty ${distro} /bin/bash -c 'cd /ansible-openstack && ansible-playbook -v test.yml --extra-vars "controller_fqdn=localhost"'
