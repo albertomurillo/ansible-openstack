@@ -20,6 +20,8 @@ before_script:
 
 script:
   - docker exec --tty ${distro} /bin/bash -c 'apt-get update'
+  - docker exec --tty ${distro} /bin/bash -c 'apt-get install -y libffi-dev libssl-dev python-dev python python-pip'
+  - docker exec --tty ${distro} /bin/bash -c 'pip install shade --upgrade'
   - docker exec --tty ${distro} /bin/bash -c 'cd /ansible-openstack && ansible-galaxy install -r requirements.yml'
   - docker exec --tty ${distro} /bin/bash -c 'cd /ansible-openstack && ansible-playbook test.yml --syntax-check'
   - docker exec --tty ${distro} /bin/bash -c 'cd /ansible-openstack && ansible-playbook -v test.yml --extra-vars "controller_fqdn=localhost"'
