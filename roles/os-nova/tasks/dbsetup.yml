@@ -1,6 +1,5 @@
 ---
   - name: Create mysql nova database
-    delegate_to: "{{ mysql_server }}"
     mysql_db:
       login_user: root
       login_password: "{{ mysql_root_password }}"
@@ -12,7 +11,6 @@
       - nova_api
 
   - name: Create mysql nova user
-    delegate_to: "{{ mysql_server }}"
     mysql_user:
       name: nova
       password: "{{ nova_database_password }}"

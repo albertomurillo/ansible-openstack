@@ -1,6 +1,5 @@
 ---
   - name: Create cinder services
-    delegate_to: "{{ keystone_fqdn }}"
     keystone:
       login_user: admin
       login_password: "{{ cinder_password }}"
@@ -18,7 +17,6 @@
         type: volumev2
 
   - name: Create cinder endpoints
-    delegate_to: "{{ keystone_fqdn }}"
     keystone:
       login_user: admin
       login_password: "{{ keystone_admin_password }}"

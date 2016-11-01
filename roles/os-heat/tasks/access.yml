@@ -1,6 +1,5 @@
 ---
   - name: Create heat services
-    delegate_to: "{{ keystone_fqdn }}"
     keystone:
       login_user: admin
       login_password: "{{ keystone_admin_password }}"
@@ -18,7 +17,6 @@
         type: cloudformation
 
   - name: Create heat endpoints
-    delegate_to: "{{ keystone_fqdn }}"
     keystone:
       login_user: admin
       login_password: "{{ keystone_admin_password }}"

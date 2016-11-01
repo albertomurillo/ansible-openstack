@@ -1,6 +1,5 @@
 ---
   - name: Create mysql keystone database
-    delegate_to: "{{ mysql_server }}"
     mysql_db:
       login_user: root
       login_password: "{{ mysql_root_password }}"
@@ -9,7 +8,6 @@
       encoding: utf8
 
   - name: Create mysql keystone user
-    delegate_to: "{{ mysql_server }}"
     mysql_user:
       name: keystone
       password: "{{ keystone_database_password }}"

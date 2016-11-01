@@ -1,6 +1,5 @@
 ---
   - name: Create mysql cinder database
-    delegate_to: "{{ mysql_server }}"
     mysql_db:
       login_user: root
       login_password: "{{ mysql_root_password }}"
@@ -9,7 +8,6 @@
       encoding: utf8
 
   - name: Create mysql cinder user
-    delegate_to: "{{ mysql_server }}"
     mysql_user:
       name: cinder
       password: "{{ cinder_database_password }}"

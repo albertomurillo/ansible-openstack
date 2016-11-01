@@ -1,6 +1,5 @@
 ---
   - name: Create glance service
-    delegate_to: "{{ keystone_fqdn }}"
     keystone:
       login_user: admin
       login_password: "{{ keystone_admin_password }}"
@@ -13,7 +12,6 @@
       insecure: yes
 
   - name: Create glance endpoints
-    delegate_to: "{{ keystone_fqdn }}"
     keystone:
       login_user: admin
       login_password: "{{ keystone_admin_password }}"
