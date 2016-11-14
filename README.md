@@ -22,9 +22,7 @@ Ansible galaxy provides a vast collection of roles that you can use within your 
 
 We will use the following ansible roles:
 
-    $ sudo ansible-galaxy install ericsysmin.chrony    
-    $ sudo ansible-galaxy install geerlingguy.mysql
-    $ sudo ansible-galaxy install Stouts.rabbitmq
+    $ sudo ansible-galaxy install -r requirements.yml
 
 ## How to Run
 I have included a vagrant file that installs all prerequisites for you

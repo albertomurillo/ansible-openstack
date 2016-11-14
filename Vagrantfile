@@ -29,9 +29,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "python", type: "shell", preserve_order: true, inline: "echo Installing python"
   config.vm.provision "ansible", type: "shell", preserve_order: true, inline: <<-SHELL
     sudo pip install ansible netaddr shade
-    sudo ansible-galaxy install ericsysmin.chrony
-    sudo ansible-galaxy install geerlingguy.mysql
-    sudo ansible-galaxy install Stouts.rabbitmq
+    sudo ansible-galaxy install -r requirements.yml
     sudo ssh-keygen -f /root/.ssh/id_rsa -q -N ""
     sudo cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
   SHELL
