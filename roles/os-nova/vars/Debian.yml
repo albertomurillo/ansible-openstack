@@ -5,11 +5,14 @@ nova_controller_packages:
   - nova-consoleauth
   - nova-novncproxy
   - nova-scheduler
+
 nova_controller_services: "{{ nova_controller_packages }}"
 
 nova_compute_packages:
   - nova-compute
   - libosinfo-1.0-0
   - sysfsutils
+  - ovmf
+
 nova_compute_services:
   - nova-compute
