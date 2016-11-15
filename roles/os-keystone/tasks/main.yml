@@ -18,7 +18,7 @@
       - ~/.config/openstack
 
   - name: Create clouds.yaml file
-    local_action: template src=clouds.yaml.j2 dest=~/.config/openstack/clouds.yaml mode=0600
+    template: src=clouds.yaml.j2 dest=~/.config/openstack/clouds.yaml mode=0600
 
   - include: access.yml
 
