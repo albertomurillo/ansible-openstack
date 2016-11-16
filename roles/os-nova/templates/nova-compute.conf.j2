@@ -2,6 +2,7 @@
 
 [DEFAULT]
 compute_driver=libvirt.LibvirtDriver
+
 [libvirt]
 {% if hwvirt.rc == 0 %}
 virt_type = kvm

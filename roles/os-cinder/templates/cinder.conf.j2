@@ -4,18 +4,19 @@
 {% if log_debug %}
 debug = True
 {% endif %}
-rpc_backend = rabbit
+rootwrap_config = /etc/cinder/rootwrap.conf
+api_paste_confg = /etc/cinder/api-paste.ini
+volume_name_template = volume-%s
+state_path = /var/lib/cinder
+volumes_dir = /var/lib/cinder/volumes
+transport_url = rabbit://{{ rabbitmq_openstack_user }}:{{ rabbitmq_openstack_password }}@{{ rabbitmq_server }}
 auth_strategy = keystone
 my_ip = {{ mgmt_interface_ip }}
 enabled_backends = lvm
+glance_api_servers = http://{{ glance_fqdn }}:9292
 
 [database]
 connection = mysql+pymysql://cinder:{{ cinder_database_password }}@{{ mysql_server }}/cinder
-
-[oslo_messaging_rabbit]
-rabbit_host = {{ rabbitmq_server }}
-rabbit_userid = {{ rabbitmq_openstack_user }}
-rabbit_password = {{ rabbitmq_openstack_password }}
 
 [keystone_authtoken]
 auth_uri = http://{{ keystone_fqdn }}:5000
@@ -36,6 +37,3 @@ volume_driver = cinder.volume.drivers.lvm.LVMVolumeDriver
 volume_group = cinder-volumes
 iscsi_protocol = iscsi
 iscsi_helper = {{ iscsi_helper }}
-
-[DEFAULT]
-glance_api_servers = http://{{ glance_fqdn }}:9292

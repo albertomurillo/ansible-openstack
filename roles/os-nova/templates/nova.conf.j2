@@ -4,17 +4,14 @@
 {% if log_debug %}
 debug = True
 {% endif %}
-dhcpbridge_flagfile=/etc/nova/nova.conf
-dhcpbridge=/usr/bin/nova-dhcpbridge
-logdir=/var/log/nova
-state_path=/var/lib/nova
-lock_path=/var/lock/nova
-force_dhcp_release=True
-libvirt_use_virtio_for_bridges=True
-ec2_private_dns_show_ip=True
-api_paste_config=/etc/nova/api-paste.ini
+dhcpbridge_flagfile = /etc/nova/nova.conf
+dhcpbridge = /usr/bin/nova-dhcpbridge
+log-dir = /var/log/nova
+state_path = /var/lib/nova
+force_dhcp_release = True
+ec2_private_dns_show_ip = True
 enabled_apis = osapi_compute,metadata
-rpc_backend = rabbit
+transport_url = rabbit://{{ rabbitmq_openstack_user }}:{{ rabbitmq_openstack_password }}@{{ rabbitmq_server }}
 auth_strategy = keystone
 my_ip = {{ mgmt_interface_ip }}
 use_neutron = True
@@ -25,11 +22,6 @@ connection = mysql+pymysql://nova:{{ nova_database_password }}@{{ mysql_server }
 
 [database]
 connection = mysql+pymysql://nova:{{ nova_database_password }}@{{ mysql_server }}/nova
-
-[oslo_messaging_rabbit]
-rabbit_host = {{ rabbitmq_server }}
-rabbit_userid = {{ rabbitmq_openstack_user }}
-rabbit_password = {{ rabbitmq_openstack_password }}
 
 [keystone_authtoken]
 auth_uri = http://{{ keystone_fqdn }}:5000
@@ -67,14 +59,18 @@ password = {{ neutron_password }}
 service_metadata_proxy = True
 metadata_proxy_shared_secret = {{ metadata_secret }}
 
-{% if ansible_os_family == "RedHat" %}
 [libvirt]
+use_virtio_for_bridges=True
+{% if ansible_os_family == "RedHat" %}
 {% if hwvirt.rc == 0 %}
 virt_type = kvm
 {% else %}
 virt_type = qemu
 {% endif %}
 {% endif %}
+
+[wsgi]
+api_paste_config=/etc/nova/api-paste.ini
 
 [cinder]
 os_region_name = RegionOne

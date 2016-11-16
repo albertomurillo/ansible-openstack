@@ -7,7 +7,7 @@ debug = True
 core_plugin = ml2
 service_plugins = router
 allow_overlapping_ips = True
-rpc_backend = rabbit
+transport_url = rabbit://{{ rabbitmq_openstack_user }}:{{ rabbitmq_openstack_password }}@{{ rabbitmq_server }}
 auth_strategy = keystone
 notify_nova_on_port_status_changes = True
 notify_nova_on_port_data_changes = True
@@ -17,11 +17,6 @@ root_helper = sudo /usr/bin/neutron-rootwrap /etc/neutron/rootwrap.conf
 
 [database]
 connection = mysql+pymysql://neutron:{{ neutron_database_password }}@{{ mysql_server }}/neutron
-
-[oslo_messaging_rabbit]
-rabbit_host = {{ rabbitmq_server }}
-rabbit_userid = {{ rabbitmq_openstack_user }}
-rabbit_password = {{ rabbitmq_openstack_password }}
 
 [keystone_authtoken]
 auth_uri = http://{{ keystone_fqdn }}:5000
