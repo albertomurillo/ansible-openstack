@@ -16,6 +16,12 @@
 
   - hosts: controller
     become: yes
+    pre_tasks:
+      - name: Install Pip
+        package: name=python-pip state=present
+
+      - name: Install shade
+        pip: name=shade state=present
     roles:
       - os-keystone
       - os-glance
