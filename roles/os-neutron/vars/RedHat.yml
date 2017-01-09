@@ -1,14 +1,19 @@
 ---
 neutron_controller_packages:
-  - openstack-neutron
-  - openstack-neutron-ml2
-  - openstack-neutron-linuxbridge
   - ebtables
-neutron_controller_services: "{{ neutron_controller_packages }}"
+  - openstack-neutron
+  - openstack-neutron-linuxbridge
+  - openstack-neutron-ml2
+neutron_controller_services:
+  - neutron-dhcp-agent.service
+  - neutron-l3-agent.service
+  - neutron-linuxbridge-agent.service
+  - neutron-metadata-agent.service
+  - neutron-server.service
 
 neutron_compute_packages:
-  - openstack-neutron-linuxbridge
   - ebtables
   - ipset
+  - openstack-neutron-linuxbridge
 neutron_compute_services:
-  - neutron-linuxbridge-agent
+  - neutron-linuxbridge-agent.service
