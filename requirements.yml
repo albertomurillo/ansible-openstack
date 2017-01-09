@@ -1,4 +1,4 @@
 # from galaxy
 - src: ericsysmin.chrony
 - src: geerlingguy.mysql
-- src: Stouts.rabbitmq
+- src: albertomurillo.rabbitmq

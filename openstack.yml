@@ -12,7 +12,7 @@
   - hosts: mqservers
     become: yes
     roles:
-      - Stouts.rabbitmq
+      - albertomurillo.rabbitmq
 
   - hosts: controller
     become: yes

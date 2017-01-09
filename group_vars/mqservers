@@ -1,5 +1,5 @@
 ---
-# https://github.com/Stouts/Stouts.rabbitmq
+# https://github.com/albertomurillo/ansible-role-rabbitmq
 rabbitmq_enabled: yes
 
 rabbitmq_plugins:
