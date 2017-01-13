@@ -34,6 +34,8 @@
       email: "{{ item.email | default('') }}"
       domain: "{{ item.domain | default('Default') }}"
     with_items: "{{ keystone_users | default([]) }}"
+    loop_control:
+      label: "{{ item.name }}"
 
   - name: Map users and roles
     os_user_role:

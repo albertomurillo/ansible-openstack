@@ -71,6 +71,8 @@
       - name: heat_domain_admin
         password: "{{ heat_domain_admin_password }}"
         domain: heat
+    loop_control:
+      label: "{{ item.name }}"
 
   - name: Assign roles to heat users
     os_user_role:
