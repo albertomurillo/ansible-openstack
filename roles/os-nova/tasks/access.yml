@@ -1,16 +1,10 @@
 ---
   - name: Create nova service
-    delegate_to: "{{ keystone_fqdn }}"
-    keystone:
-      login_user: admin
-      login_password: "{{ nova_password }}"
-      login_project_name: "admin"
-      command: "ensure_service"
-      service_name: "nova"
-      service_type: "compute"
+    os_keystone_service:
+      cloud: default
       description: "OpenStack Compute"
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      insecure: yes
+      name: "nova"
+      service_type: "compute"
 
   - name: Create nova endpoints
     delegate_to: "{{ keystone_fqdn }}"

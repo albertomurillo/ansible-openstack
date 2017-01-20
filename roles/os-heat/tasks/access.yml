@@ -1,16 +1,10 @@
 ---
   - name: Create heat services
-    delegate_to: "{{ keystone_fqdn }}"
-    keystone:
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      command: "ensure_service"
-      service_name: "{{ item.name }}"
-      service_type: "{{ item.type }}"
+    os_keystone_service:
+      cloud: default
       description: "Orchestration"
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      insecure: yes
+      name: "{{ item.name }}"
+      service_type: "{{ item.type }}"
     with_items:
       - name: heat
         type: orchestration

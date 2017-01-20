@@ -1,16 +1,10 @@
 ---
   - name: Create glance service
-    delegate_to: "{{ keystone_fqdn }}"
-    keystone:
-      login_user: admin
-      login_password: "{{ keystone_admin_password }}"
-      login_project_name: "admin"
-      command: "ensure_service"
-      service_name: "glance"
-      service_type: "image"
+    os_keystone_service:
+      cloud: default
       description: "OpenStack Image"
-      endpoint: "http://{{ keystone_fqdn }}:35357/v3"
-      insecure: yes
+      name: "glance"
+      service_type: "image"
 
   - name: Create glance endpoints
     delegate_to: "{{ keystone_fqdn }}"
