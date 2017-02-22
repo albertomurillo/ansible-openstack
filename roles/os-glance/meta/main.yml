@@ -1,6 +1,6 @@
 galaxy_info:
   author: Alberto Murillo
-  description: Role to deploy Glance (Newton)
+  description: Role to deploy Glance (Ocata)
   company: Intel
 
   issue_tracker_url: https://github.com/albertomurillo/ansible-openstack/issues
@@ -20,7 +20,7 @@ galaxy_info:
   galaxy_tags:
     - openstack
     - glance
-    - newton
+    - ocata
 
 dependencies:
   - os-common

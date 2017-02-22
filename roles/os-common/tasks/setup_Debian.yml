@@ -7,9 +7,9 @@
 
   # NOTE: cloud-archive format is not supported in ansible
   # See issue https://github.com/ansible/ansible-modules-core/issues/292
-  - name: Add cloud-archive:newton repository
+  - name: Add cloud-archive:ocata repository
     apt_repository:
-      repo: deb http://ubuntu-cloud.archive.canonical.com/ubuntu xenial-updates/newton main
+      repo: deb http://ubuntu-cloud.archive.canonical.com/ubuntu xenial-updates/ocata main
       state: present
     register: openstack_repo
 

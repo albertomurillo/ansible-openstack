@@ -1,6 +1,6 @@
 galaxy_info:
   author: Alberto Murillo
-  description: Role to deploy Keystone (Newton)
+  description: Role to deploy Keystone (Ocata)
   company: Intel
 
   issue_tracker_url: https://github.com/albertomurillo/ansible-openstack/issues
@@ -20,7 +20,7 @@ galaxy_info:
   galaxy_tags:
     - openstack
     - keystone
-    - newton
+    - Ocata
 
 dependencies:
   - os-common
